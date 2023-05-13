@@ -88,25 +88,29 @@ class Home(tk.Frame):
         #TRAFEGO
         tk.Label(self, image=total, bd=0, bg='#FFFFFF').place(x=150, y=80)
         tk.Label(self, image=tipoTrafego, bd=0, bg='#FFFFFF').place(x=700, y=80)
+        grafico2(200,250,200,100)
+
+        tk.Label(self, text="40 Gb", width=10, height=2, bd=0, bg='#9664FF', foreground="#FFFFFF", font=10).place( x=300, y=200)
+        tk.Label(self, text="10 Gb", width=10, height=2, bd=0, bg='#A4CE48', foreground="#FFFFFF", font=10).place( x=420, y=200)
 
         #DOWNLOADS
         tk.Label(self, image=download, bd=0, bg='#5029A3').place( x=720, y=230)
-        grafico(730,300,300,200)
+        grafico(735,275,300,200)
         #UPLOADS
         tk.Label(self, image=upload, bd=0, bg='#5029A3').place( x=720, y=460)
-        grafico(730,530,300,200)
+        grafico(735,515,300,200)
         #JOGOS
         tk.Label(self, image=jogos, bd=0, bg='#5029A3').place( x=920, y=230)
-        grafico(930,300,300,200)
+        grafico(935,275,300,200)
         #STREAMING
         tk.Label(self, image=streaming, bd=0, bg='#5029A3').place( x=920, y=460)
-        grafico(930,530,300,200)
+        grafico(935,515,300,200)
         #SOCIALS
         tk.Label(self, image=socials, bd=0, bg='#5029A3').place( x=1120, y=230)
-        grafico(1130,300,300,200)
+        grafico(1135,275,300,200)
         #OUTROS
         tk.Label(self, image=outros, bd=0, bg='#5029A3').place( x=1120, y=460)
-        grafico(1130,530,300,200)
+        grafico(1135,515,300,200)
 
 
 class Dados(tk.Frame):
