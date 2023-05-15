@@ -1,22 +1,29 @@
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
+from tkinter import ttk
 
-def grafico(x,y,tot,usg):
-    fig, ax = plt.subplots(figsize=(1.6, 1))
-    ax.barh(0, tot, align='center', height=.5, color='#000000')
-    ax.barh(1, usg, align='center', height=.5, color='#5029A3')
-    ax.invert_yaxis()
-    nomes = ["ToT", "Usg"]
-    for i, nome in enumerate(nomes):
-        ax.text(0, i, nome, ha="right", va="center", fontsize=8, color="black")
-    ax.tick_params(bottom=False, left=False, labelbottom=False, labelleft=False)
-    ax.tick_params(axis='x', colors='white')
-    ax.set_facecolor('#9664FF')
+def progressbar(x, y, max, value):
 
-    canvas = FigureCanvasTkAgg(fig)
-    canvas.get_tk_widget().place(x=x, y=y)
+    style = ttk.Style()
+    style.theme_use('default')
+    style.configure("green.Horizontal.TProgressbar", foreground='none', background='#A4CE48', troughcolor='#FFFFFF', bordercolor='#FFFFFF')
+    style.configure("CustomLabel.TLabel", foreground='black', background='#FFFFFF')
+
+
+    progressbar = ttk.Progressbar(root, orient="horizontal", length=200, mode="determinate", style="green.Horizontal.TProgressbar")
+    progressbar.place(x=x,y=y)
+
+    label = ttk.Label(root, text="", style="CustomLabel.TLabel")
+    label.place(x=x+2, y=y+2)
+
+    progressbar["maximum"] = max
+    progressbar["value"] = value
+    label["text"] = str(progressbar["value"]), "GB"
 
 root = tk.Tk()
-grafico(100, 100)
+root.geometry("300x300")
+
+progressbar(10, 0, 30, 5)
+progressbar(10, 40, 30, 25)
+progressbar(10, 80, 30, 15)
+
 root.mainloop()
