@@ -31,7 +31,7 @@ class SampleApp(tk.Tk):
 
 
         self.frames = {}
-        for F in (Home, Dados, Speed, Config):
+        for F in (Home, Speed, Config):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -54,7 +54,7 @@ class SampleApp(tk.Tk):
 class Home(tk.Frame):
     def __init__(self, parent, controller):
 
-        global nav, home, data, velocity, config, total, tipoTrafego, download, upload, jogos, streaming, socials, outros, apps, download_back, upload_back, configuracoes
+        global nav, home, data, velocity, config, total, tipoTrafego, download, upload, others, ssdp, https, dns, apps, download_back, upload_back, configuracoes
 
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -71,10 +71,10 @@ class Home(tk.Frame):
         tipoTrafego = tk.PhotoImage(file="./img/tipoTrafego.png")
         download = tk.PhotoImage(file="./img/download.png")
         upload = tk.PhotoImage(file="./img/upload.png")
-        jogos = tk.PhotoImage(file="./img/jogos.png")
-        streaming = tk.PhotoImage(file="./img/streaming.png")
-        socials = tk.PhotoImage(file="./img/socials.png")
-        outros = tk.PhotoImage(file="./img/outros.png")
+        others = tk.PhotoImage(file="./img/others.png")
+        ssdp = tk.PhotoImage(file="./img/ssdp.png")
+        https = tk.PhotoImage(file="./img/https.png")
+        dns = tk.PhotoImage(file="./img/dns.png")
         apps = tk.PhotoImage(file="./img/apps.png")
         download_back = tk.PhotoImage(file="./img/download_back.png")
         upload_back = tk.PhotoImage(file="./img/upload_back.png")
@@ -82,67 +82,47 @@ class Home(tk.Frame):
 
         #NAVBAR
         tk.Label(self, image=nav, bd=0, bg='#FFFFFF').place(x=0, y=200)
-        tk.Button(self, image=home, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Home")).place(x=10, y=245)
-        tk.Button(self, image=data, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Dados")).place(x=10, y=320)
-        tk.Button(self, image=velocity, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Speed")).place(x=10, y=395)
-        tk.Button(self, image=config, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Config")).place(x=10, y=470)
+        tk.Button(self, image=home, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Home")).place(x=10, y=270)
+        tk.Button(self, image=velocity, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Speed")).place(x=10, y=355)
+        tk.Button(self, image=config, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Config")).place(x=10, y=440)
 
         #TRAFEGO
         tk.Label(self, image=total, bd=0, bg='#FFFFFF').place(x=150, y=80)
         tk.Label(self, image=tipoTrafego, bd=0, bg='#FFFFFF').place(x=700, y=80)
         tk.Label(self, text="TOTAL DISPONIVEL", width=25, height=2, bd=0, bg='#9664FF', foreground="#FFFFFF", font=10).place( x=285, y=250)
         tk.Label(self, text="TOTAL USADO", width=25, height=2, bd=0, bg='#9664FF', foreground="#FFFFFF", font=10).place( x=285, y=420)
-        totalbar(self,x=300, y=300, max=40, value=30, len=200, color="#777777")
-        progressbar(self,x=300, y=470, max=40, value=10, len=200, color="#A4CE48")
-        
         #DOWNLOADS
         tk.Label(self, image=download, bd=0, bg='#5029A3').place( x=720, y=230)
-        totalbar(self, x=740, y=315, max=40, value=30, len=140, color="#777777")
-        progressbar(self, x=740, y=345, max=40, value=15, len=140, color="#A4CE48")
         #UPLOADS
         tk.Label(self, image=upload, bd=0, bg='#5029A3').place( x=720, y=460)
+        #DNS
+        tk.Label(self, image=dns, bd=0, bg='#5029A3').place( x=920, y=230)
+        #HTTPS
+        tk.Label(self, image=https, bd=0, bg='#5029A3').place( x=920, y=460)
+        #SSDP
+        tk.Label(self, image=ssdp, bd=0, bg='#5029A3').place( x=1120, y=230)
+        #OTHERS
+        tk.Label(self, image=others, bd=0, bg='#5029A3').place( x=1120, y=460)
+
+        #BARRAS DE PROGRESSO
+        #TRAFEGO
+        totalbar(self,x=300, y=300, max=40, value=30, len=200, color="#777777")
+        progressbar(self,x=300, y=470, max=40, value=10, len=200, color="#A4CE48")
+        #DOWNLOADS
+        totalbar(self, x=740, y=310, max=40, value=30, len=140, color="#777777")
+        progressbar(self, x=740, y=345, max=40, value=15, len=140, color="#A4CE48")
+        #UPLOADS
         totalbar(self, x=740, y=550, max=40, value=30, len=140, color="#777777")
         progressbar(self, x=740, y=580, max=40, value=11, len=140, color="#A4CE48")
-
         #JOGOS
-        tk.Label(self, image=jogos, bd=0, bg='#5029A3').place( x=920, y=230)
-        totalbar(self, x=940, y=315, max=40, value=30, len=140, color="#777777")
-        progressbar(self, x=940, y=345, max=40, value=11, len=140, color="#A4CE48")
-
+        totalbar(self, x=940, y=560, max=40, value=30, len=140, color="#777777")
         #STREAMING
-        tk.Label(self, image=streaming, bd=0, bg='#5029A3').place( x=920, y=460)
-        totalbar(self, x=940, y=550, max=40, value=30, len=140, color="#777777")
-        progressbar(self, x=940, y=580, max=40, value=11, len=140, color="#A4CE48")
-
+        totalbar(self, x=940, y=330, max=40, value=30, len=140, color="#777777")
         #SOCIALS
-        tk.Label(self, image=socials, bd=0, bg='#5029A3').place( x=1120, y=230)
-        totalbar(self, x=1140, y=315, max=40, value=30, len=140, color="#777777")
-        progressbar(self, x=1140, y=345, max=40, value=11, len=140, color="#A4CE48")
-
+        totalbar(self, x=1140, y=330, max=40, value=30, len=140, color="#777777")
         #OUTROS
-        tk.Label(self, image=outros, bd=0, bg='#5029A3').place( x=1120, y=460)
-        totalbar(self, x=1140, y=550, max=40, value=30, len=140, color="#777777")
-        progressbar(self, x=1140, y=580, max=40, value=11, len=140, color="#A4CE48")
+        totalbar(self, x=1140, y=560, max=40, value=30, len=140, color="#777777")
 
-
-
-class Dados(tk.Frame):
-
-    def __init__(self, parent, controller):
-
-        tk.Frame.__init__(self, parent)
-        self.controller = controller
-        self.configure(bg='#FFFFFF')
-
-        #NAVBAR
-        tk.Label(self, image=nav, bd=0, bg='#FFFFFF').place(x=0, y=200)
-        tk.Button(self, image=home, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Home")).place(x=10, y=245)
-        tk.Button(self, image=data, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Dados")).place(x=10, y=320)
-        tk.Button(self, image=velocity, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Speed")).place(x=10, y=395)
-        tk.Button(self, image=config, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Config")).place(x=10, y=470)
-
-        #APPS
-        tk.Label(self, image=apps, bd=0, bg='#FFFFFF').place(x=150, y=80)
 
 
 class Speed(tk.Frame):
@@ -153,11 +133,11 @@ class Speed(tk.Frame):
         self.configure(bg='#FFFFFF')
 
         #NAVBAR
+        #NAVBAR
         tk.Label(self, image=nav, bd=0, bg='#FFFFFF').place(x=0, y=200)
-        tk.Button(self, image=home, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Home")).place(x=10, y=245)
-        tk.Button(self, image=data, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Dados")).place(x=10, y=320)
-        tk.Button(self, image=velocity, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Speed")).place(x=10, y=395)
-        tk.Button(self, image=config, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Config")).place(x=10, y=470)
+        tk.Button(self, image=home, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Home")).place(x=10, y=270)
+        tk.Button(self, image=velocity, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Speed")).place(x=10, y=355)
+        tk.Button(self, image=config, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Config")).place(x=10, y=440)
 
         #DOWNLOAD E UPLOAD
         tk.Label(self, image=download_back, bd=0, bg='#FFFFFF').place(x=150, y=80)
@@ -178,10 +158,9 @@ class Config(tk.Frame):
  
         #NAVBAR
         tk.Label(self, image=nav, bd=0, bg='#FFFFFF').place(x=0, y=200)
-        tk.Button(self, image=home, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Home")).place(x=10, y=245)
-        tk.Button(self, image=data, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Dados")).place(x=10, y=320)
-        tk.Button(self, image=velocity, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Speed")).place(x=10, y=395)
-        tk.Button(self, image=config, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Config")).place(x=10, y=470)
+        tk.Button(self, image=home, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Home")).place(x=10, y=270)
+        tk.Button(self, image=velocity, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Speed")).place(x=10, y=355)
+        tk.Button(self, image=config, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Config")).place(x=10, y=440)
 
         #CONFIGURACAO
         tk.Label(self, image=configuracoes, bd=0, bg='#FFFFFF').place(x=150, y=80)
