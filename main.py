@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import font as tkfont
 from funcoes import *
 
-
 class SampleApp(tk.Tk):
 
     def __init__(self, *args, **kwargs):
@@ -104,24 +103,9 @@ class Home(tk.Frame):
         #OTHERS
         tk.Label(self, image=others, bd=0, bg='#5029A3').place( x=1120, y=460)
 
-        #BARRAS DE PROGRESSO
-        #TRAFEGO
-        totalbar(self,x=300, y=300, max=40, value=30, len=200, color="#777777")
-        progressbar(self,x=300, y=470, max=40, value=10, len=200, color="#A4CE48")
-        #DOWNLOADS
-        totalbar(self, x=740, y=310, max=40, value=30, len=140, color="#777777")
-        progressbar(self, x=740, y=345, max=40, value=15, len=140, color="#A4CE48")
-        #UPLOADS
-        totalbar(self, x=740, y=550, max=40, value=30, len=140, color="#777777")
-        progressbar(self, x=740, y=580, max=40, value=11, len=140, color="#A4CE48")
-        #JOGOS
-        totalbar(self, x=940, y=560, max=40, value=30, len=140, color="#777777")
-        #STREAMING
-        totalbar(self, x=940, y=330, max=40, value=30, len=140, color="#777777")
-        #SOCIALS
-        totalbar(self, x=1140, y=330, max=40, value=30, len=140, color="#777777")
-        #OUTROS
-        totalbar(self, x=1140, y=560, max=40, value=30, len=140, color="#777777")
+        progressbar(self,100,100,100,100,100,"#000000")
+
+    
 
 
 
@@ -133,7 +117,6 @@ class Speed(tk.Frame):
         self.configure(bg='#FFFFFF')
 
         #NAVBAR
-        #NAVBAR
         tk.Label(self, image=nav, bd=0, bg='#FFFFFF').place(x=0, y=200)
         tk.Button(self, image=home, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Home")).place(x=10, y=270)
         tk.Button(self, image=velocity, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Speed")).place(x=10, y=355)
@@ -144,10 +127,8 @@ class Speed(tk.Frame):
         tk.Label(self, image=upload_back, bd=0, bg='#FFFFFF').place(x=800, y=80)
 
         tk.Label(self, text="TAXA DE DADOS", width=25, height=2, bd=0, bg='#9664FF', foreground="#FFFFFF", font=10).place( x=940, y=350)
-        totalbar(self,x=955, y=400, max=40, value=30, len=200, color="#F95151", text="/s")
 
         tk.Label(self, text="TAXA DE DADOS", width=25, height=2, bd=0, bg='#9664FF', foreground="#FFFFFF", font=10).place( x=285, y=350)
-        totalbar(self,x=300, y=400, max=40, value=30, len=200, color="#F95151", text="/s")
         
 class Config(tk.Frame):
 
