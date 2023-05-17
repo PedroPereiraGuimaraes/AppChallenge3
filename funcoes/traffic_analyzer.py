@@ -16,7 +16,7 @@ PORT_HOSTNAME_TRAFFIC = 50002
 # TODO: Create function to fetch traffic per hostname
 
 # Intervalo de esgotação (em segundos) para todos os sockets
-SOCKET_TIMEOUT = 5
+SOCKET_TIMEOUT = 40000
 
 # Atraso padrão (em segundos) para envio de informação 
 # Esse atraso é compartilhado entre todas as funções que enviam informações via comunicação por socket
