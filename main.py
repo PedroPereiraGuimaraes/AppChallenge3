@@ -81,7 +81,6 @@ class Base(tk.Frame):
         self.speed_button = tk.Button(self, image=self.velocity, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Speed")).place(x=10, y=355)
         self.config_button = tk.Button(self, image=self.config, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Config")).place(x=10, y=440)
         self.label = tk.Label(self, image=self.viasat, bd=0, bg='#FFFFFF').place(x=40, y=40)
-        self.reload_button = tk.Button(self, image=self.reload, bd=0, bg='#FFFFFF', activebackground='#FFFFFF', command=lambda:graficos(self)).place(x=1300, y=20)
 
 
 class Home(Base):
@@ -106,10 +105,10 @@ class Home(Base):
         #OTHERS
         tk.Label(self, image=self.others, bd=0, bg='#3D1B86').place( x=1120, y=460)
         
-        graficos(self)
+        graficosHome(self)
         
         def rodar():
-            graficos(self)
+            graficosHome(self)
         scheduler = BackgroundScheduler()
         scheduler.add_job(rodar, 'interval', seconds=5)
         scheduler.start()
@@ -124,9 +123,13 @@ class Speed(Base):
         tk.Label(self, image=self.download_back, bd=0, bg='#FFFFFF').place(x=150, y=80)
         tk.Label(self, image=self.upload_back, bd=0, bg='#FFFFFF').place(x=800, y=80)
 
-        tk.Label(self, text="TAXA DE DADOS", width=25, height=2, bd=0, bg='#9664FF', foreground="#FFFFFF", font=10).place( x=940, y=350)
-
-        tk.Label(self, text="TAXA DE DADOS", width=25, height=2, bd=0, bg='#9664FF', foreground="#FFFFFF", font=10).place( x=285, y=350)
+        graficoSpeed(self)
+        
+        def rodar():
+            graficoSpeed(self)
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(rodar, 'interval', seconds=5)
+        scheduler.start()
         
 class Config(Base):
 
