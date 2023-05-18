@@ -72,12 +72,16 @@ class Base(tk.Frame):
         self.https = tk.PhotoImage(file="./img/https.png")
         self.ssdp = tk.PhotoImage(file="./img/ssdp.png")
         self.others = tk.PhotoImage(file="./img/others.png")
+        self.viasat = tk.PhotoImage(file="./img/viasat.png")
+        self.reload = tk.PhotoImage(file="./img/reload.png")
 
         #NAVBAR
         self.label = tk.Label(self, image=self.nav, bd=0, bg='#FFFFFF').place(x=0, y=200)
-        self.home_button = tk.Button(self, image=self.home, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Home")).place(x=10, y=270)
-        self.speed_button = tk.Button(self, image=self.velocity, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Speed")).place(x=10, y=355)
-        self.config_button = tk.Button(self, image=self.config, bd=0, bg="#9664FF", activebackground='#9664FF', command=lambda:controller.show_frame("Config")).place(x=10, y=440)
+        self.home_button = tk.Button(self, image=self.home, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Home")).place(x=10, y=270)
+        self.speed_button = tk.Button(self, image=self.velocity, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Speed")).place(x=10, y=355)
+        self.config_button = tk.Button(self, image=self.config, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Config")).place(x=10, y=440)
+        self.label = tk.Label(self, image=self.viasat, bd=0, bg='#FFFFFF').place(x=40, y=40)
+        self.reload_button = tk.Button(self, image=self.reload, bd=0, bg='#FFFFFF', activebackground='#FFFFFF', command=lambda:graficos(self)).place(x=1300, y=20)
 
 
 class Home(Base):
@@ -86,32 +90,30 @@ class Home(Base):
         Base.__init__(self, parent, controller)
         controller.attributes()
 
-        PieV = [30,70]
-        colV= ["green","#adadad"]
-
         #TRAFEGO
         tk.Label(self, image=self.total, bd=0, bg='#FFFFFF').place(x=150, y=80)
         tk.Label(self, image=self.tipoTrafego, bd=0, bg='#FFFFFF').place(x=700, y=80)
-        tk.Label(self, text="TOTAL DISPONIVEL", width=25, height=2, bd=0, bg='#9664FF', foreground="#FFFFFF", font=10).place( x=285, y=250)
-        tk.Label(self, text="TOTAL USADO", width=25, height=2, bd=0, bg='#9664FF', foreground="#FFFFFF", font=10).place( x=285, y=420)
         #DOWNLOADS
-        tk.Label(self, image=self.download, bd=0, bg='#5029A3').place( x=720, y=230)
-        createPieChart(self,PieV,colV,740,280) 
+        tk.Label(self, image=self.download, bd=0, bg='#3C1A85').place( x=720, y=230)
         #UPLOADS
-        tk.Label(self, image=self.upload, bd=0, bg='#5029A3').place( x=720, y=460)
-        createPieChart(self,PieV,colV,740,510) 
+        tk.Label(self, image=self.upload, bd=0, bg='#311370').place( x=720, y=460)
         #DNS
-        tk.Label(self, image=self.dns, bd=0, bg='#5029A3').place( x=920, y=230)
-        createPieChart(self,PieV,colV,940,280) 
+        tk.Label(self, image=self.dns, bd=0, bg='#5228AC').place( x=920, y=230)
         #HTTPS
-        tk.Label(self, image=self.https, bd=0, bg='#5029A3').place( x=920, y=460)
-        createPieChart(self,PieV,colV,940,510)
+        tk.Label(self, image=self.https, bd=0, bg='#3C1A84').place( x=920, y=460)
         #SSDP
         tk.Label(self, image=self.ssdp, bd=0, bg='#5029A3').place( x=1120, y=230)
-        createPieChart(self,PieV,colV,1140,280) 
         #OTHERS
-        tk.Label(self, image=self.others, bd=0, bg='#5029A3').place( x=1120, y=460)
-        createPieChart(self,PieV,colV,1140,510)
+        tk.Label(self, image=self.others, bd=0, bg='#3D1B86').place( x=1120, y=460)
+        
+        graficos(self)
+        
+        def rodar():
+            graficos(self)
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(rodar, 'interval', seconds=5)
+        scheduler.start()
+        
 
 class Speed(Base):
 
