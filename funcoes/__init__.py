@@ -32,39 +32,44 @@ def run():
 
 def graficos(self):
     data = handle_socket_connection(50001)
-    print(data)
     if data != None:
         #TRAFEGO
         total = 500
-        trafego = (data['total']/total)*100
+        trafego = (data['total']/(total+0.000000000000000000000000000001))*100
         if data['total']/total <= 1:
             createPieChart(self,[100-trafego, trafego],["#1C064A","#A4CE48"],310,310,200,200)
         #DOWNLOADS
-        download = (data['download']/data['total'])*100
-        createPieChart(self,[100-download, download],["#A4CE48","#B431B8"],740,280,140,140)
+        download = (data['download']/(data['total']+0.00000000000000000000000001))*100
+        if download <= 1:
+            createPieChart(self,[99.99, 0.01],["#B431B8","#A4CE48"],740,280,140,140)
+        else:
+            createPieChart(self,[100-download, download],["#A4CE48","#B431B8"],740,280,140,140)
         #UPLOADS
-        upload = (data['upload']/data['total'])*100
-        createPieChart(self,[100-upload, upload],["#A4CE48","#B431B8"],740,510,140,140)
+        upload = (data['upload']/(data['total']+0.00000000000000000000000001))*100
+        if upload <= 1:
+            createPieChart(self,[99.99, 0.01],["#B431B8","#A4CE48"],740,510,140,140)
+        else:
+            createPieChart(self,[100-upload, upload],["#A4CE48","#B431B8"],740,510,140,140)
         #DNS
-        dns = (data['domain']/data['total'])*100
+        dns = (data['domain']/(data['total']+0.00000000000000000000000001))*100
         if dns <= 5:
             createPieChart(self,[99.99, 0.01],["#B431B8","#A4CE48"],940,280,140,140)
         else:
             createPieChart(self,[100-dns, dns],["#A4CE48","#B431B8"],940,280,140,140)
         #HTTPS
-        https = (data['https']/data['total'])*100
+        https = (data['https']/(data['total']+0.00000000000000000000000001))*100
         if https <= 5:
             createPieChart(self,[99.99, 0.01],["#B431B8","#A4CE48"],940,510,140,140)
         else:
             createPieChart(self,[100-https, https],["#A4CE48","#B431B8"],940,510,140,140)
         #SSDP
-        ssdp = (data['ssdp']/data['total'])*100
+        ssdp = (data['ssdp']/(data['total']+0.00000000000000000000000001))*100
         if ssdp <= 5:
             createPieChart(self,[99.99, 0.01],["#B431B8","#A4CE48"],1140,280,140,140)
         else:
             createPieChart(self,[100-ssdp, ssdp],["#A4CE48","#B431B8"],1140,280,140,140)
         #OTHERS
-        others = (data['others']/data['total'])*100
+        others = (data['others']/(data['total']+0.00000000000000000000000001))*100
         if others <= 5:
             createPieChart(self,[99.99, 0.01],["#B431B8","#A4CE48"],1140,510,140,140)
         else:
@@ -113,31 +118,72 @@ def handle_socket_connection(port):
                     break
                 data_received = data.decode()[1:].replace('\\','').replace('\n','').replace("'",'')
                 json_data = json.loads(data_received)
-                https=domain =ssdp=others=total=download=upload =0
-                #TOTAL
-                download = 0 
-                upload = 0
-                #DOWNLOAD
-                download += convert_size_to_bytes(json_data["https"]["download"])
-                download += convert_size_to_bytes(json_data["domain"]["download"])
-                download += convert_size_to_bytes(json_data["ssdp"]["download"])
-                download += convert_size_to_bytes(json_data["others"]["download"])
-                #UPLOAD
-                upload += convert_size_to_bytes(json_data["https"]["upload"])
-                upload += convert_size_to_bytes(json_data["domain"]["upload"])
-                upload += convert_size_to_bytes(json_data["ssdp"]["upload"])
-                upload += convert_size_to_bytes(json_data["others"]["upload"])
+                https=domain =ssdp=others=download=upload =0
+                try:
+                    download += convert_size_to_bytes(json_data["https"]["download"])
+                except:
+                    download += 0
 
-                https = round(convert_size_to_bytes(json_data["https"]["total"]),3)
-                domain = round(convert_size_to_bytes(json_data["domain"]["total"]),3)
-                ssdp =  round(convert_size_to_bytes(json_data["ssdp"]["total"]),3)
-                others = round(convert_size_to_bytes(json_data["others"]["total"]),3)
+                try:
+                    download += convert_size_to_bytes(json_data["domain"]["download"])
+                except:
+                    download += 0
+
+                try:
+                    download += convert_size_to_bytes(json_data["ssdp"]["download"])
+                except:
+                    download += 0
+
+                try:
+                    download += convert_size_to_bytes(json_data["others"]["download"])
+                except:
+                    download += 0
+
+                try:
+                    upload += convert_size_to_bytes(json_data["https"]["upload"])
+                except:
+                    upload += 0
+
+                try:
+                    upload += convert_size_to_bytes(json_data["domain"]["upload"])
+                except:
+                    upload += 0
+                
+                try:
+                    upload += convert_size_to_bytes(json_data["ssdp"]["upload"])
+                except:
+                    upload += 0
+                
+                try:
+                    upload += convert_size_to_bytes(json_data["others"]["upload"])
+                except:
+                    upload += 0
+
+                try:
+                    https = convert_size_to_bytes(json_data["https"]["total"])
+                except:
+                    https += 0
+
+                try:
+                    domain = convert_size_to_bytes(json_data["domain"]["total"])
+                except:
+                    domain += 0
+
+                try:
+                    ssdp =  convert_size_to_bytes(json_data["ssdp"]["total"])
+                except:
+                    ssdp += 0
+
+                try:
+                    others = convert_size_to_bytes(json_data["others"]["total"])
+                except:
+                    others += 0
 
                 values = {
-                    'https': https,
-                    'domain': domain,
-                    'ssdp': ssdp,
-                    'others': others,
+                    'https': round(https,3),
+                    'domain': round(domain,3),
+                    'ssdp': round(ssdp,3),
+                    'others': round(others,3),
                     'upload': round(upload,3),
                     'download': round(download,3),
                     'total': round(round(download,3)+round(upload,3),3)
@@ -146,4 +192,4 @@ def handle_socket_connection(port):
                 return values
             
     except Exception as e:
-        print(f'Error in connection to port {port}: {e}')
+        print(f"Erro na porta{e}")
