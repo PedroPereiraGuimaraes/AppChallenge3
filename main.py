@@ -57,9 +57,7 @@ class Base(tk.Frame):
         #IMPORTANDO AS IMAGENS
         self.nav = tk.PhotoImage(file="./img/nav.png")
         self.home = tk.PhotoImage(file="./img/home.png")
-        self.data = tk.PhotoImage(file="./img/data.png")
         self.velocity = tk.PhotoImage(file="./img/velocity.png")
-        self.config = tk.PhotoImage(file="./img/config.png")
         self.total = tk.PhotoImage(file="./img/total.png")
         self.tipoTrafego = tk.PhotoImage(file="./img/tipoTrafego.png")
         self.download = tk.PhotoImage(file="./img/download.png")
@@ -77,9 +75,8 @@ class Base(tk.Frame):
 
         #NAVBAR
         self.label = tk.Label(self, image=self.nav, bd=0, bg='#FFFFFF').place(x=0, y=200)
-        self.home_button = tk.Button(self, image=self.home, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Home")).place(x=10, y=270)
-        self.speed_button = tk.Button(self, image=self.velocity, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Speed")).place(x=10, y=355)
-        self.config_button = tk.Button(self, image=self.config, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Config")).place(x=10, y=440)
+        self.home_button = tk.Button(self, image=self.home, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Home")).place(x=8, y=210)
+        self.speed_button = tk.Button(self, image=self.velocity, bd=0, bg="#1A0547", activebackground='#1A0547', command=lambda:controller.show_frame("Speed")).place(x=8, y=375)
         self.label = tk.Label(self, image=self.viasat, bd=0, bg='#FFFFFF').place(x=40, y=40)
 
 
@@ -110,7 +107,7 @@ class Home(Base):
         def rodar():
             graficosHome(self)
         scheduler = BackgroundScheduler()
-        scheduler.add_job(rodar, 'interval', seconds=5)
+        scheduler.add_job(rodar, 'interval', seconds=3)
         scheduler.start()
         
 
@@ -128,7 +125,7 @@ class Speed(Base):
         def rodar():
             graficoSpeed(self)
         scheduler = BackgroundScheduler()
-        scheduler.add_job(rodar, 'interval', seconds=5)
+        scheduler.add_job(rodar, 'interval', seconds=3)
         scheduler.start()
         
 class Config(Base):

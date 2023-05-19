@@ -40,56 +40,56 @@ def graficosHome(self):
             createPieChart(self,[100-trafego, trafego],["#1C064A","#9664FF"],310,310,200,200)
         Ttext = Label(self, text=str(total)+".00 MB",font="Ebrima 12 bold",bg="white",fg="#341575")
         Ttext.place(x=365,y=530)
-        Ttltext = Label(self, text=str(data['total'])+" MB", width = 20, font="Ebrima 12 bold",bg="white",fg="#9664FF")
-        Ttltext.place(x=365,y=550)
+        Ttltext = Label(self, text=str(data['total'])+" MB", width = 10, font="Ebrima 12 bold",bg="white",fg="#9664FF")
+        Ttltext.place(x=355,y=550)
         #DOWNLOADS
         download = (data['download']/(data['total']+0.00000000000000000000000001))*100
         if download <= 1:
             createPieChart(self,[99.99, 0.01],["#1C064A","#9664FF"],750,280,120,120)
         else:
             createPieChart(self,[100-download, download],["#9664FF","#1C064A"],750,280,120,120)
-        Dtext = Label(self, text=str(data['download'])+" MB", width = 20,font="Ebrima 12 bold",bg="white",fg="#341575")
-        Dtext.place(x=770,y=400)
+        Dtext = Label(self, text=str(data['download'])+" MB", width = 10,font="Ebrima 12 bold",bg="white",fg="#341575")
+        Dtext.place(x=750,y=400)
         #UPLOADS
         upload = (data['upload']/(data['total']+0.00000000000000000000000001))*100
         if upload <= 1:
             createPieChart(self,[99.99, 0.01],["#1C064A","#9664FF"],750,510,120,120)
         else:
             createPieChart(self,[100-upload, upload],["#9664FF","#1C064A"],750,510,120,120)
-        Utext = Label(self, text=str(data['upload'])+" MB", width = 20,font="Ebrima 12 bold",bg="white",fg="#341575")
-        Utext.place(x=770,y=630)
+        Utext = Label(self, text=str(data['upload'])+" MB", width = 10,font="Ebrima 12 bold",bg="white",fg="#341575")
+        Utext.place(x=750,y=630)
         #DNS
         dns = (data['domain']/(data['total']+0.00000000000000000000000001))*100
         if dns <= 5:
             createPieChart(self,[99.99, 0.01],["#1C064A","#9664FF"],950,280,120,120)
         else:
             createPieChart(self,[100-dns, dns],["#9664FF","#1C064A"],950,280,120,120)
-        DNStext = Label(self, text=str(data['domain'])+" MB", width = 20,font="Ebrima 12 bold",bg="white",fg="#341575")
-        DNStext.place(x=980,y=400)
+        DNStext = Label(self, text=str(data['domain'])+" MB", width = 10,font="Ebrima 12 bold",bg="white",fg="#341575")
+        DNStext.place(x=960,y=400)
         #HTTPS
         https = (data['https']/(data['total']+0.00000000000000000000000001))*100
         if https <= 5:
             createPieChart(self,[99.99, 0.01],["#1C064A","#9664FF"],950,510,120,120)
         else:
             createPieChart(self,[100-https, https],["#9664FF","#1C064A"],950,510,120,120)
-        Htext = Label(self, text=str(data['https'])+" MB", width = 20,font="Ebrima 12 bold",bg="white",fg="#341575")
-        Htext.place(x=980,y=630)
+        Htext = Label(self, text=str(data['https'])+" MB", width = 10,font="Ebrima 12 bold",bg="white",fg="#341575")
+        Htext.place(x=960,y=630)
         #SSDP
         ssdp = (data['ssdp']/(data['total']+0.00000000000000000000000001))*100
         if ssdp <= 5:
             createPieChart(self,[99.99, 0.01],["#1C064A","#9664FF"],1150,280,120,120)
         else:
             createPieChart(self,[100-ssdp, ssdp],["#9664FF","#1C064A"],1150,280,120,120)
-        Stext = Label(self, text=str(data['ssdp'])+" MB", width = 20,font="Ebrima 12 bold",bg="white",fg="#341575")
-        Stext.place(x=1180,y=400)
+        Stext = Label(self, text=str(data['ssdp'])+" MB", width = 10,font="Ebrima 12 bold",bg="white",fg="#341575")
+        Stext.place(x=1160,y=400)
         #OTHERS
         others = (data['others']/(data['total']+0.00000000000000000000000001))*100
         if others <= 5:
             createPieChart(self,[99.99, 0.01],["#1C064A","#9664FF"],1150,510,120,120)
         else:
             createPieChart(self,[100-others, others],["#9664FF","#1C064A"],1150,510,120,120)
-        Otext = Label(self, text=str(data['others'])+" MB", width = 20,font="Ebrima 12 bold",bg="white",fg="#341575")
-        Otext.place(x=1180,y=630)
+        Otext = Label(self, text=str(data['others'])+" MB", width = 10,font="Ebrima 12 bold",bg="white",fg="#341575")
+        Otext.place(x=1160,y=630)
     else:
         messagebox.showinfo("Erro", "Habilite o package tracer ou espere a chegada de dados.")
 
@@ -101,10 +101,10 @@ def graficoSpeed(self):
     if hasattr(self,'Uptext'):
             Uptext.destroy()
 
-    Dntext = Label(self, text=str(data['download_speed'])+" MB/s", width = 20,font="Ebrima 20 bold",bg="white",fg="#341575")
-    Dntext.place(x=340,y=400)
-    Uptext = Label(self, text=str(data['upload_speed'])+" MB/s", width = 20,font="Ebrima 20 bold",bg="white",fg="#341575")
-    Uptext.place(x=980,y=400)
+    Dntext = Label(self, text=str(data['download_speed'])+" MB/s", width = 10,font="Ebrima 20 bold",bg="white",fg="#341575")
+    Dntext.place(x=320,y=400)
+    Uptext = Label(self, text=str(data['upload_speed'])+" MB/s", width = 10,font="Ebrima 20 bold",bg="white",fg="#341575")
+    Uptext.place(x=970,y=400)
         
         
 
